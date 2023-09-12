@@ -2,12 +2,15 @@ version: "3.3"
 
 services:
   web:
-    build:
-      context: .
+    build: .
     ports:
       - "3000:3000"
     environment:
-      - DATABASE_URL=postgres://si5_sacc:dev_password@database:5432/td_1
+      - POSTGRESQL_ADDON_DB=td_1
+      - POSTGRESQL_ADDON_HOST=database
+      - POSTGRESQL_ADDON_PASSWORD=dev_password
+      - POSTGRESQL_ADDON_USER=si5_sacc
+      - POSTGRESQL_ADDON_PORT=5432
     depends_on:
       - database
 
