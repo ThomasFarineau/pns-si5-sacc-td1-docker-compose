@@ -11,19 +11,10 @@ const app = express();
 
 require('dotenv').config();
 
-const sequelize = new Sequelize({
-    dialect: 'postgres',
-    host: process.env.POSTGRESQL_ADDON_HOST,
-    port: process.env.POSTGRESQL_ADDON_PORT,
-    database: process.env.POSTGRESQL_ADDON_DB,
-    username: process.env.POSTGRESQL_ADDON_USER,
-    password: process.env.POSTGRESQL_ADDON_PASSWORD
-})
-
-sequelize.authenticate().then(() => {
-    console.log('Connection has been established successfully.');
-}).catch(error => {
-    console.error('Unable to connect to the database:', error);
+const pg = require('pg');
+pg.connect(process.env.POSTGRESQL_ADDON_URI, function(err, client, done){
+    if(err) console.error(err);
+    else console.log('Connected to postgres! Getting schemas...');
 });
 
 app.use(logger('dev'));
