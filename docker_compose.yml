@@ -4,18 +4,20 @@ services:
   web:
     build: .
     ports:
-      - "3000:3000"
+      - "8080:8080"
     environment:
       - POSTGRESQL_ADDON_DB=td_1
-      - POSTGRESQL_ADDON_HOST=database
+      - POSTGRESQL_ADDON_HOST=postgres_database
       - POSTGRESQL_ADDON_PASSWORD=dev_password
       - POSTGRESQL_ADDON_USER=si5_sacc
       - POSTGRESQL_ADDON_PORT=5432
     depends_on:
-      - database
+      - postgres_database
 
-  database:
+  postgres_database:
     image: postgres:14
+    ports:
+      - "5432:5432"
     environment:
       - POSTGRES_PASSWORD=dev_password
       - POSTGRES_USER=si5_sacc
